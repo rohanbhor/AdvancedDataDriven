@@ -51,7 +51,6 @@ public class CreateDocumentContent extends TestBase{
 		ExcelReader excel = new ExcelReader(Constants.UNIVERSITY_PATH_SUITE1);
 		CommonUtils.checkExecution("GlobalAdmin", "createDocumentContent", data.get(Constants.TESTCASE_COL_RUNMODE), excel);
 		
-	
 		click("manageContentWidget_XPATH");
 		
 		List<WebElement> ele = driver.findElements(By.tagName("iframe"));
@@ -69,8 +68,29 @@ public class CreateDocumentContent extends TestBase{
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(or.getProperty("manageAllContentsTab_XPATH"))));
 		click("manageAllContentsTab_XPATH");	
 		click("createNewContentBtn_XPATH");
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("contentName_XPATH"))));
+		Thread.sleep(5000);
 		type("contentName_XPATH", data.get("ContentName"));
+		select("contentModeDropDown_XPATH", data.get("Mode"));
+		select("contentTypeDropDown_XPATH", data.get("Type"));
+		type("durationHH_XPATH",data.get("DurationHH"));
+		type("durationHH_XPATH",data.get("DurationMM"));
+		select("selectSource_XPATH", data.get("Source"));
+		click("ta3DS");
+		click("taBusinessPartner");
+		click("taCSIPartner");
+		click("taPCPartner");
+		type("selectTargetRoles_XPATH",data.get("TargetRoles"));
+		click("targetRoleQA");
+		type("geoAvailability_XPATH",data.get("GeoAvailability"));
+		click("geoIndia_XPATH");
+		
+		if(data.get("Axis").equalsIgnoreCase("Brand")) {
+		select("selectAxisDropDown_XPATH",data.get("Axis"));
+		click("selectBrandBtn_XPATH");
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("selectBrandENOVIA_XPATH"))));
+		click("selectBrandENOVIA_XPATH");
+		click("addBrandBtn_XPATH");		
+		}
 		
 		System.out.println("PASSED");
 	}	
