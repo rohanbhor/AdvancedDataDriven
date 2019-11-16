@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+  </listeners>
+  <test name="Bank Manager Login Test">
+    <classes>
+      <class name="com.ds.testcases.BankManagerLoginTest"/>
+    </classes>
+  </test> <!-- Bank Manager Login Test -->
+  <test name="Add Customer Test">
+    <classes>
+      <class name="com.ds.testcases.AddCustomerTest"/>
+    </classes>
+  </test> <!-- Add Customer Test -->
+  <test name="Bank Manager Login Test(failed)">
+    <classes>
+      <class name="com.ds.testcases.BankManagerLoginTest">
+        <methods>
+          <include name="loginAsBankManager"/>
+        </methods>
+      </class> <!-- com.ds.testcases.BankManagerLoginTest -->
+      <class name="com.ds.testcases.AddCustomerTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.ds.testcases.AddCustomerTest -->
+    </classes>
+  </test> <!-- Bank Manager Login Test(failed) -->
+  <test name="Add Customer Test(failed)">
+    <classes>
+      <class name="com.ds.testcases.AddCustomerTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="addCustomer" invocation-numbers="0 1"/>
+        </methods>
+      </class> <!-- com.ds.testcases.AddCustomerTest -->
+    </classes>
+  </test> <!-- Add Customer Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

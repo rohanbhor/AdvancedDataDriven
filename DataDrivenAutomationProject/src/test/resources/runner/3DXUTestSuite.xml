@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="3DXU Test Suites">
+<suite-files>
+
+<suite-file path="./src/test/resources/runner/GlobalAdmin.xml"></suite-file>
+<suite-file path="./src/test/resources/runner/CertificationAppAdmin.xml"></suite-file>
+
+</suite-files>
+	
+</suite> <!-- Suite -->

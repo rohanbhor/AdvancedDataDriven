@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Global_Admin" >
+	<listeners>
+	<listener class-name ="com.ds.listeners.CustomListeners"/>
+	</listeners> 
+	
+	<test name="Create Scorm Content">
+		<classes>
+			<class name="com.university.globaladmin.CreateScormContent" />
+		</classes>
+	</test>
+	<test name="Create RefLink Content">
+		<classes>
+			<class name="com.university.globaladmin.CreateRefLinkContent" />
+		</classes>
+	</test>
+	<test name="Create Document Content">
+		<classes>
+			<class name="com.university.globaladmin.CreateDocumentContent" />
+		</classes>
+	</test> 
+	<test name="Create InstructorLed Content">
+		<classes>
+			<class name="com.university.globaladmin.CreateInstructorLedContent" />
+		</classes>
+	</test> 
+	<test name="Create Learning Module">
+		<classes>
+			<class name="com.university.globaladmin.CreateLearningModule" />
+		</classes>
+	</test>
+	<test name="Create Certificate">
+		<classes>
+			<class name="com.university.globaladmin.CreateCertificate" />
+		</classes>
+	</test>
+	<test name="Create Exam Session">
+		<classes>
+			<class name="com.university.globaladmin.CreateExamSession" />
+		</classes>
+	</test>
+	<test name="Create Training Session">
+		<classes>
+			<class name="com.university.globaladmin.CreateTrainingSession" />
+		</classes>
+	</test>
+</suite> <!-- Suite -->

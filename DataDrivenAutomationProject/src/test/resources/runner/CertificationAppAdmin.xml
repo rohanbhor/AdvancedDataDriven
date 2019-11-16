@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite1" >
+	<test name="Create Online Exam">
+		<classes>
+			<class name="com.university.certificationappadmin.CreateOnlineExam" />
+		</classes>
+	</test>
+	<test name="Create Proctored Exam">
+		<classes>
+			<class name="com.university.certificationappadmin.CreateProctoredExam" />
+		</classes>
+	</test>
+	<test name="Create TrueFalse Type Que">
+		<classes>
+			<class name="com.university.certificationappadmin.CreateTrueFalseTypeQue" />
+		</classes>
+	</test> <!-- Test -->
+	<test name="Create MCSA Type Que">
+		<classes>
+			<class name="com.university.certificationappadmin.CreateMCSATypeQue" />
+		</classes>
+	</test> <!-- Test -->
+	<test name="Create MCMA Type Que">
+		<classes>
+			<class name="com.university.certificationappadmin.CreateMCMATypeQue" />
+		</classes>
+	</test> <!-- Test -->	
+	<test name="Create Value Type Que">
+		<classes>
+			<class name="com.university.certificationappadmin.CreateValueTypeQue" />
+		</classes>
+	</test> <!-- Test -->	
+	
+	
+</suite> <!-- Suite -->
