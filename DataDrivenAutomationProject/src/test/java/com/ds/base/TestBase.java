@@ -12,8 +12,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -100,9 +102,12 @@ public class TestBase {
 			driver= new FirefoxDriver();
 			log.debug("Firefox Browser Launched");
 		}else if(config.getProperty("browser").equals("chrome")){	
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/test/resources/executables/"+"chromedriver.exe");
-			driver= new ChromeDriver();
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/test/resources/executables/"+"chromedriver.exe");			
+			DesiredCapabilities cap = DesiredCapabilities.chrome();
+		    cap.setCapability("applicationCacheEnabled", false);    
+			driver= new ChromeDriver(cap);
 			log.debug("Chrome Browser Launched");
+		
 		}else if(config.getProperty("browser").equals(System.getProperty("user.dir")+"/src/test/resources/executables/"+"internetexlorer")){
 			System.setProperty("webdriver.ie.driver", "IEdriverServer.exe");
 			driver= new InternetExplorerDriver();
