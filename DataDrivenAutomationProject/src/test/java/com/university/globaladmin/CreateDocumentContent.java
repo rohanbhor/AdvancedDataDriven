@@ -42,8 +42,8 @@ public class CreateDocumentContent extends TestBase{
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("searchDashboard_XPATH"))));
 		//type("searchDashboard_XPATH", config.getProperty("qalDashboardName"));
 		type("searchDashboard_XPATH", "3DXU- Global Admin (QAL)");
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("selectDashboard_XPATH"))));
-		click("selectDashboard_XPATH");
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("selectGlobalAdminDashboard_XPATH"))));
+		click("selectGlobalAdminDashboard_XPATH");
 	}
 	
 	
@@ -91,10 +91,10 @@ public class CreateDocumentContent extends TestBase{
 		}
 		
 		//select("contentTypeDropDown_XPATH", data.get("Type"));
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("contentTypeDropDown_XPATH"))));
 		click("contentTypeDropDown_XPATH");
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		if(data.get("Type").equalsIgnoreCase("Document")) {	
 			//click("documentContentType_XPATH");
 			System.out.println(Keys.ESCAPE);
@@ -116,8 +116,6 @@ public class CreateDocumentContent extends TestBase{
 		type("durationHH_XPATH",data.get("DurationHH"));
 		type("durationHH_XPATH",data.get("DurationMM"));
 		
-		
-		//select("selectSource_XPATH", data.get("Source"));
 		click("selectSource_XPATH");
 		click("selectInternalDSSource_XPATH");
 		
@@ -128,18 +126,62 @@ public class CreateDocumentContent extends TestBase{
 		click("taPCPartner_XPATH");
 		type("selectTargetRoles_XPATH",data.get("TargetRoles"));
 		Thread.sleep(1000);
-		click("targetRoleQA");
+		click("targetRoleQA_XPATH");
 		type("geoAvailability_XPATH",data.get("GeoAvailability"));
-		click("geoIndia_XPATH");
-		
+		click("geoSelect_XPATH");
+		//System.out.println(Keys.ENTER);
+		click("selectAxisDropDown_XPATH");
 		if(data.get("Axis").equalsIgnoreCase("Brand")) {
-		select("selectAxisDropDown_XPATH",data.get("Axis"));
-		Thread.sleep(2000);
-		click("selectBrandBtn_XPATH");
+		Thread.sleep(1000);	
+		click("selectBrandOption_XPATH");
+		click("selectBrandBtn_XPATH");	
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("selectBrandENOVIA_XPATH"))));
 		click("selectBrandENOVIA_XPATH");
 		click("addBrandBtn_XPATH");		
 		}
+		
+		//Add Language 
+		click("addLanguageBtn_XPATH");
+		Thread.sleep(1000);
+		click("languageDropDown_XPATH");	
+		if(data.get("Language").equalsIgnoreCase("English")) {
+			Thread.sleep(1000);	
+			click("selectEnglishLanguage_XPATH");	
+		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
+			click("selectChineseLanguage_XPATH");
+		}
+		
+		
+		autoitX.run("calc.exe");
+		autoitX.winActivate("Calculator");
+		autoitX.winWaitActive("Calculator");
+		//Enter 3
+		autoitX.controlClick("Calculator", "", "133") ;
+		Thread.sleep(1000);
+		//Enter +
+		autoitX.controlClick("Calculator", "", "93") ;
+		Thread.sleep(1000);
+		//Enter 3
+		autoitX.controlClick("Calculator", "", "133") ;
+		Thread.sleep(1000);
+		//Enter =
+		autoitX.controlClick("Calculator", "", "121") ;
+		
+		
+		
+		
+		
+		
+		
+		type("languageDescription_XPATH", data.get("LangDesc"));
+		type("learningObjectives_XPATH", data.get("LearningObjectives"));
+		type("addObjectivesRow1_XPATH", data.get("LineOne"));
+		type("addObjectivesRow2_XPATH", data.get("LineTwo"));
+		type("addObjectivesRow3_XPATH", data.get("LineThree"));
+		type("addObjectivesRow4_XPATH", data.get("LineFour"));
+		type("addObjectivesRow5_XPATH", data.get("LineFive"));
+		
+		
 		
 		System.out.println("PASSED");
 	}	

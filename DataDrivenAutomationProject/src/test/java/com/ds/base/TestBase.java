@@ -1,5 +1,6 @@
 package com.ds.base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,9 +27,12 @@ import org.testng.annotations.BeforeSuite;
 import com.ds.utilities.ExcelReader;
 import com.ds.utilities.ExtentManager;
 import com.ds.utilities.TestUtil;
+import com.jacob.com.LibraryLoader;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
+
+import autoitx4java.AutoItX;
 
 public class TestBase {
 	
@@ -53,6 +57,7 @@ public class TestBase {
 	public static ExtentReports rep = ExtentManager.getInstance();
 	public static ExtentTest test;
 	public static String browser;
+	public static AutoItX autoitX;
 	
 	@BeforeSuite
 	public void setUp(){
@@ -116,7 +121,7 @@ public class TestBase {
 			System.out.println("Please Mention the browser type in the object properties file");
 		}
 		
-		
+		autoitX = new AutoItX();
 		wait = new WebDriverWait(driver,30);
 		
 		}
@@ -233,6 +238,26 @@ public class TestBase {
 		click("passportLoginBtn_XPATH");	
 	}
 	
+	public static String jvmBitVersion(){
+		 return System.getProperty("sun.arch.data.model");
+		}
+	
+	
+	public static void AutoItInit() {
+		String jacobDllVersionToUse;
+
+		if (TestBase.jvmBitVersion().contains("32")){
+		jacobDllVersionToUse = "jacob-1.18-M2-x86.dll";
+		//jacobDllVersionToUse = "AutoItX3.dll";
+		}
+		else {
+		jacobDllVersionToUse = "jacob-1.18-M2-x64.dll";
+		//jacobDllVersionToUse = "AutoItX3_x64.dll";
+		}
+
+		File file = new File(System.getProperty("user.dir")+"/src/test/resources/lib/"+jacobDllVersionToUse);
+		System.setProperty(LibraryLoader.JACOB_DLL_PATH, file.getAbsolutePath());		
+	}
 	
 	@AfterSuite
 	public void tearDown(){
