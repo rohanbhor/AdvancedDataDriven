@@ -72,12 +72,12 @@ public class CreateDocumentContent extends TestBase{
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(or.getProperty("manageAllContentsTab_XPATH"))));
 		click("manageAllContentsTab_XPATH");	
 		click("createNewContentBtn_XPATH");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		type("contentName_XPATH", data.get("ContentName"));
 		
 		//select("contentModeDropDown_XPATH", data.get("Mode"));
 		click("contentModeDropDown_XPATH");		
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		if(data.get("Mode").equalsIgnoreCase("Document")) {
 			click("doumentMode_XPATH");
 			test.log(LogStatus.INFO, "Document Mod Selected");
@@ -99,8 +99,7 @@ public class CreateDocumentContent extends TestBase{
 		if(data.get("Type").equalsIgnoreCase("Document")) {	
 			//click("documentContentType_XPATH");
 			System.out.println(Keys.ESCAPE);
-			System.out.println("Document Content type is Preselected for Content Mode- Document");
-			test.log(LogStatus.INFO, "Document Content Type Selected");
+			test.log(LogStatus.INFO, "Document Content type is Preselected for Content Mode- Document");
 		}else if(data.get("Type").equalsIgnoreCase("SCORM")) {
 			click("scormContentType_XPATH");
 			test.log(LogStatus.INFO, "SCORM content type Selected");
@@ -177,7 +176,9 @@ public class CreateDocumentContent extends TestBase{
 			click("selectChineseLanguage_XPATH");
 		}
 		click("languageSubmitBtn_XPATH");	
-		click("browseSourceFileBtn_XPATH");
+		Thread.sleep(1000);
+		test.log(LogStatus.INFO, "Switching to Create New cotent >Source File Section");
+		click("browseSourceFileInput_XPATH");
 		autoitX.winWait("Open", "", 5000);
 		autoitX.winWaitActive("Open");
 		autoitX.controlFocus("Open", "", "Edit1");
@@ -187,33 +188,33 @@ public class CreateDocumentContent extends TestBase{
 		Thread.sleep(2000);
 		autoitX.controlClick("Open", "", "Button1") ;
 		Thread.sleep(2000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("fileUploadSuccess_XPATH"))));
+		//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("fileUploadSuccess_XPATH"))));
 		
 		type("fileComment_XPATH",data.get("FileComment"));
-		click("uploadFileBtn_XPATH");	
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("uploadedVisibleFileLink_XPATH"))));
+		click("uploadFileBtn_XPATH");
+		Thread.sleep(5000);
+		//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("uploadedVisibleFileLink_XPATH"))));
 		
-		
-		/*
-		autoitX.run("calc.exe");
-		autoitX.winActivate("Calculator");
-		autoitX.winWaitActive("Calculator");
-		//Enter 3
-		autoitX.controlClick("Calculator", "", "133") ;
-		Thread.sleep(1000);
-		//Enter +
-		autoitX.controlClick("Calculator", "", "93") ;
-		Thread.sleep(1000);
-		//Enter 3
-		autoitX.controlClick("Calculator", "", "133") ;
-		Thread.sleep(1000);
-		//Enter =
-		autoitX.controlClick("Calculator", "", "121") ;
-		*/
-		
-		
-		
-		
+	   click("RASCIPage_XPATH");
+	   Thread.sleep(1000);
+	   type("responsible_XPATH",data.get("Responsible"));
+	   Thread.sleep(3000);
+	   click("responsibleUser_XPATH");
+  
+	   type("support_XPATH",data.get("Support"));
+	   Thread.sleep(3000);
+	   click("supportUser_XPATH");
+	   
+	   type("approver_XPATH",data.get("Approver"));
+	   Thread.sleep(3000);
+	   click("approverUser_XPATH");
+	 
+	   click("publishContentBtn_XPATH");
+	   Thread.sleep(2000);
+	   
+	   test.log(LogStatus.INFO, "Content "+"'"+data.get("ContentName")+"'"+" published successfully");
+	   wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("publishedContentNameLabel_XPATH"))));
+	   
 		
 		System.out.println("PASSED");
 	}	
