@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -123,7 +124,8 @@ public class TestBase {
 		
 		AutoItInit();
 		autoitX = new AutoItX();
-		wait = new WebDriverWait(driver,30);
+		driver.manage().timeouts().implicitlyWait(20L, TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver,20);
 		
 		}
 	}
@@ -154,22 +156,23 @@ public class TestBase {
 	}
 	
 	public static void type(String locator, String value){
+		String selectAll = Keys.chord(Keys.CONTROL, "a");
 		if (locator.contains("XPATH")){
-			driver.findElement(By.xpath(or.getProperty(locator))).sendKeys(value);
+			driver.findElement(By.xpath(or.getProperty(locator))).sendKeys(selectAll+value);
 			System.out.println("clicked on locator: "+or.getProperty(locator)+" Entered Value: "+value);
 			test.log(LogStatus.INFO, "Clicked on locator: "+locator+", "+" Entered Value: "+value);
 		}else if(locator.contains("CSS")){
-			driver.findElement(By.cssSelector(or.getProperty(locator))).sendKeys(value);
+			driver.findElement(By.cssSelector(or.getProperty(locator))).sendKeys(selectAll+value);
 			System.out.println("clicked on locator: "+or.getProperty(locator)+" Entered Value: "+value);
 			test.log(LogStatus.INFO, "Clicked on locator: "+locator+", "+" Entered Value: "+value);
 		}else if(locator.contains("ID")){
-			driver.findElement(By.id(or.getProperty(locator))).sendKeys(value);
+			driver.findElement(By.id(or.getProperty(locator))).sendKeys(selectAll+value);
 			test.log(LogStatus.INFO, "Clicked on locator: "+locator+", "+" Entered Value: "+value);
 		}else if(locator.contains("NAME")){
-			driver.findElement(By.name(or.getProperty(locator))).sendKeys(value);
+			driver.findElement(By.name(or.getProperty(locator))).sendKeys(selectAll+value);
 			test.log(LogStatus.INFO, "Clicked on locator: "+locator+", "+" Entered Value: "+value);
 		}else if(locator.contains("TAGNAME")){
-			driver.findElement(By.tagName(or.getProperty(locator))).sendKeys(value);
+			driver.findElement(By.tagName(or.getProperty(locator))).sendKeys(selectAll+value);
 			test.log(LogStatus.INFO, "Clicked on locator: "+locator+", "+" Entered Value: "+value);
 		}else{
 			Assert.fail("Locator is incorrect or not present :"+ locator);

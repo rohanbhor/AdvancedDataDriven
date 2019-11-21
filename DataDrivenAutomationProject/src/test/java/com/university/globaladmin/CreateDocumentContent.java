@@ -45,6 +45,7 @@ public class CreateDocumentContent extends TestBase{
 		type("searchDashboard_XPATH", "3DXU- Global Admin (QAL)");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("selectGlobalAdminDashboard_XPATH"))));
 		click("selectGlobalAdminDashboard_XPATH");
+		click("manageContentWidget_XPATH");
 		
 	}
 	
@@ -53,10 +54,8 @@ public class CreateDocumentContent extends TestBase{
 		
 		ExcelReader excel = new ExcelReader(Constants.UNIVERSITY_PATH_SUITE1);
 		CommonUtils.checkExecution("GlobalAdmin", "createDocumentContent", data.get(Constants.TESTCASE_COL_RUNMODE), excel);
-		
-		
-		click("manageContentWidget_XPATH");
-		
+			
+		Thread.sleep(15000);	
 		List<WebElement> ele = driver.findElements(By.tagName("iframe"));
 	    System.out.println("Number of frames in a page :" + ele.size());
 	    for(WebElement el : ele){
@@ -67,12 +66,20 @@ public class CreateDocumentContent extends TestBase{
 	      }
 	    
 		driver.switchTo().frame(ele.get(0));	
-		System.out.println("Switch to frame successfully");
-		Thread.sleep(15000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(or.getProperty("manageAllContentsTab_XPATH"))));
+		test.log(LogStatus.INFO, "Switched to the frame successfully: "+ele.get(0).toString());
+		
+		//wait.until(ExpectedConditions.elementToBeClickable(By.xpath(or.getProperty("manageAllContentsTab_XPATH"))));
 		click("manageAllContentsTab_XPATH");	
-		click("createNewContentBtn_XPATH");
-		Thread.sleep(2000);
+		
+		try {
+			click("createNewContentBtn_XPATH");
+			Thread.sleep(2000);
+		}catch(Exception e){
+			test.log(LogStatus.INFO, "Inside the catch block of Create New Content Button");
+			click("createNewContentPreliminaryBtn_XPATH");
+			Thread.sleep(2000);
+		}
+		
 		type("contentName_XPATH", data.get("ContentName"));
 		
 		//select("contentModeDropDown_XPATH", data.get("Mode"));
@@ -106,15 +113,20 @@ public class CreateDocumentContent extends TestBase{
 		}else if(data.get("Type").equalsIgnoreCase("training content")) {
 			click("trainingContentType_XPATH");
 			test.log(LogStatus.INFO, "Training content type selected");
+		}else if(data.get("Type").equalsIgnoreCase("Reference Link")) {
+			click("referenceLinkContentType_XPATH");
+			test.log(LogStatus.INFO, "Training content type selected");	
 		}
+		
 		
 		//else {
 		//	Assert.fail("couldn't find the Content Type");
 		//}
 		
-		
+		Thread.sleep(1000);
 		type("durationHH_XPATH",data.get("DurationHH"));
-		type("durationHH_XPATH",data.get("DurationMM"));
+		Thread.sleep(1000);
+		type("durationMM_XPATH",data.get("DurationMM"));
 		
 		click("selectSource_XPATH");
 		click("selectInternalDSSource_XPATH");
@@ -149,10 +161,11 @@ public class CreateDocumentContent extends TestBase{
 			click("selectEnglishLanguage_XPATH");	
 		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
 			click("selectChineseLanguage_XPATH");
+		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
+			click("selectFrenchLanguage_XPATH");
 		}
-	
+		
 		type("languageDescription_XPATH",data.get("LangDesc"));
-	
 		type("learningObjectives_XPATH",data.get("LearningObjectives"));
 		type("addObjectivesRow1_XPATH",data.get("LineOne"));
 		type("addObjectivesRow2_XPATH",data.get("LineTwo"));
@@ -160,7 +173,7 @@ public class CreateDocumentContent extends TestBase{
 		type("addObjectivesRow4_XPATH",data.get("LineFour"));
 		type("addObjectivesRow5_XPATH",data.get("LineFive"));
 		
-		if(data.get("Type").equalsIgnoreCase("Document")) {
+		if(data.get("Type").equalsIgnoreCase("Document") || data.get("Type").equalsIgnoreCase("SCORM")) {
 			Thread.sleep(1000);	
 			click("languageBrowseDocumentsBtn_XPATH");	
 			autoitX.winWait("Open", "", 5000);
@@ -172,9 +185,13 @@ public class CreateDocumentContent extends TestBase{
 			Thread.sleep(2000);
 			autoitX.controlClick("Open", "", "Button1") ;
 			Thread.sleep(5000);
-		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
-			click("selectChineseLanguage_XPATH");
+			test.log(LogStatus.INFO, "File uploaded Successfully :"+filepath);
+			
+		}else if(data.get("Type").equalsIgnoreCase("Reference Link")) {
+			type("specifyURL_XPATH", data.get("SpecifyURL"));
+			test.log(LogStatus.INFO, "Reflink URL entered Successfully :"+data.get("SpecifyURL"));
 		}
+		
 		click("languageSubmitBtn_XPATH");	
 		Thread.sleep(1000);
 		test.log(LogStatus.INFO, "Switching to Create New cotent >Source File Section");
@@ -192,7 +209,7 @@ public class CreateDocumentContent extends TestBase{
 		
 		type("fileComment_XPATH",data.get("FileComment"));
 		click("uploadFileBtn_XPATH");
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 		//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("uploadedVisibleFileLink_XPATH"))));
 		
 	   click("RASCIPage_XPATH");
@@ -213,10 +230,9 @@ public class CreateDocumentContent extends TestBase{
 	   Thread.sleep(2000);
 	   
 	   test.log(LogStatus.INFO, "Content "+"'"+data.get("ContentName")+"'"+" published successfully");
-	   wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("publishedContentNameLabel_XPATH"))));
-	   
-		
-		System.out.println("PASSED");
+		   
+	   driver.switchTo().defaultContent();
+	   System.out.println("PASSED");
 	}	
 
 }
