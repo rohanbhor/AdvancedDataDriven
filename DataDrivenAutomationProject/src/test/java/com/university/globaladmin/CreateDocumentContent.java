@@ -218,19 +218,33 @@ public class CreateDocumentContent extends TestBase{
 		Thread.sleep(6000);
 		//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("uploadedVisibleFileLink_XPATH"))));
 		
-	   click("RASCIPage_XPATH");
-	   Thread.sleep(1000);
+		//RASCI CODE
+		
+		click("RASCIPage_XPATH");
+		Thread.sleep(1000);
+		
+		WebElement responsible = driver.findElement(By.xpath(or.getProperty("responsible_XPATH")));
+		WebElement approver = driver.findElement(By.xpath(or.getProperty("approver_XPATH")));
+		WebElement support = driver.findElement(By.xpath(or.getProperty("support_XPATH")));
+	
 	   type("responsible_XPATH",data.get("Responsible"));
-	   Thread.sleep(3000);
-	   click("responsibleUser_XPATH");
-  
+	   Thread.sleep(4000);
+	   responsible.sendKeys(Keys.DOWN);
+	   responsible.sendKeys(Keys.ENTER);
+	   //click("responsibleUser_XPATH");
+     
 	   type("support_XPATH",data.get("Support"));
 	   Thread.sleep(3000);
-	   click("supportUser_XPATH");
+	   support.sendKeys(Keys.DOWN);
+	   support.sendKeys(Keys.ENTER);
+	   //WebElement.sendKeys(Keys.DOWN + Keys.ENTER);
+	   //click("supportUser_XPATH");
 	   
 	   type("approver_XPATH",data.get("Approver"));
 	   Thread.sleep(3000);
-	   click("approverUser_XPATH");
+	   approver.sendKeys(Keys.DOWN);
+	   approver.sendKeys(Keys.ENTER);
+	   //click("approverUser_XPATH");
 	 
 	   click("publishContentBtn_XPATH");
 	   Thread.sleep(2000);
