@@ -161,8 +161,10 @@ public class CreateDocumentContent extends TestBase{
 			click("selectEnglishLanguage_XPATH");	
 		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
 			click("selectChineseLanguage_XPATH");
-		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
+		}else if(data.get("Language").equalsIgnoreCase("French")) {
 			click("selectFrenchLanguage_XPATH");
+		}else {
+			Assert.fail("couldn't find the Language");
 		}
 		
 		type("languageDescription_XPATH",data.get("LangDesc"));
@@ -190,6 +192,8 @@ public class CreateDocumentContent extends TestBase{
 		}else if(data.get("Type").equalsIgnoreCase("Reference Link")) {
 			type("specifyURL_XPATH", data.get("SpecifyURL"));
 			test.log(LogStatus.INFO, "Reflink URL entered Successfully :"+data.get("SpecifyURL"));
+		}else {
+			Assert.fail("Failed to upload a document or Failed to enter a URL(for Reflink)");
 		}
 		
 		click("languageSubmitBtn_XPATH");	
@@ -205,6 +209,8 @@ public class CreateDocumentContent extends TestBase{
 		Thread.sleep(2000);
 		autoitX.controlClick("Open", "", "Button1") ;
 		Thread.sleep(2000);
+		test.log(LogStatus.INFO, "Source File uploaded Successfully :"+filepath2);
+		
 		//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("fileUploadSuccess_XPATH"))));
 		
 		type("fileComment_XPATH",data.get("FileComment"));
