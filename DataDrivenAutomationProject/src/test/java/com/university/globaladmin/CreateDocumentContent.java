@@ -30,6 +30,7 @@ public class CreateDocumentContent extends TestBase{
 	
 	@BeforeClass
 	public void setUp() {
+		
 		driver.get(config.getProperty("qalGlobalAdmin"));
 		log.debug("Website Launched : "+config.getProperty("qalGlobalAdmin"));
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")), TimeUnit.SECONDS);
@@ -44,15 +45,15 @@ public class CreateDocumentContent extends TestBase{
 		type("searchDashboard_XPATH", "3DXU- Global Admin (QAL)");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("selectGlobalAdminDashboard_XPATH"))));
 		click("selectGlobalAdminDashboard_XPATH");
+		
 	}
-	
-	
 	
 	@Test(dataProviderClass=DataProviders.class, dataProvider="getDataGlobalAdmin")
 	public void createDocumentContent(HashMap<String, String>data) throws InterruptedException{
 		
 		ExcelReader excel = new ExcelReader(Constants.UNIVERSITY_PATH_SUITE1);
 		CommonUtils.checkExecution("GlobalAdmin", "createDocumentContent", data.get(Constants.TESTCASE_COL_RUNMODE), excel);
+		
 		
 		click("manageContentWidget_XPATH");
 		
@@ -67,7 +68,7 @@ public class CreateDocumentContent extends TestBase{
 	    
 		driver.switchTo().frame(ele.get(0));	
 		System.out.println("Switch to frame successfully");
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(or.getProperty("manageAllContentsTab_XPATH"))));
 		click("manageAllContentsTab_XPATH");	
 		click("createNewContentBtn_XPATH");
@@ -150,8 +151,50 @@ public class CreateDocumentContent extends TestBase{
 		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
 			click("selectChineseLanguage_XPATH");
 		}
+	
+		type("languageDescription_XPATH",data.get("LangDesc"));
+	
+		type("learningObjectives_XPATH",data.get("LearningObjectives"));
+		type("addObjectivesRow1_XPATH",data.get("LineOne"));
+		type("addObjectivesRow2_XPATH",data.get("LineTwo"));
+		type("addObjectivesRow3_XPATH",data.get("LineThree"));
+		type("addObjectivesRow4_XPATH",data.get("LineFour"));
+		type("addObjectivesRow5_XPATH",data.get("LineFive"));
+		
+		if(data.get("Type").equalsIgnoreCase("Document")) {
+			Thread.sleep(1000);	
+			click("languageBrowseDocumentsBtn_XPATH");	
+			autoitX.winWait("Open", "", 5000);
+			autoitX.winWaitActive("Open");
+			autoitX.controlFocus("Open", "", "Edit1");
+			String filepath = System.getProperty("user.dir")+"\\src\\test\\resources\\testdatafiles\\"+data.get("Documents");
+			System.out.println(filepath);
+			autoitX.ControlSetText("Open", "", "Edit1", filepath);
+			Thread.sleep(2000);
+			autoitX.controlClick("Open", "", "Button1") ;
+			Thread.sleep(5000);
+		}else if(data.get("Language").equalsIgnoreCase("Chinese")) {
+			click("selectChineseLanguage_XPATH");
+		}
+		click("languageSubmitBtn_XPATH");	
+		click("browseSourceFileBtn_XPATH");
+		autoitX.winWait("Open", "", 5000);
+		autoitX.winWaitActive("Open");
+		autoitX.controlFocus("Open", "", "Edit1");
+		String filepath2 = System.getProperty("user.dir")+"\\src\\test\\resources\\testdatafiles\\"+data.get("File");
+		System.out.println(filepath2);
+		autoitX.ControlSetText("Open", "", "Edit1", filepath2);
+		Thread.sleep(2000);
+		autoitX.controlClick("Open", "", "Button1") ;
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("fileUploadSuccess_XPATH"))));
+		
+		type("fileComment_XPATH",data.get("FileComment"));
+		click("uploadFileBtn_XPATH");	
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(or.getProperty("uploadedVisibleFileLink_XPATH"))));
 		
 		
+		/*
 		autoitX.run("calc.exe");
 		autoitX.winActivate("Calculator");
 		autoitX.winWaitActive("Calculator");
@@ -166,20 +209,9 @@ public class CreateDocumentContent extends TestBase{
 		Thread.sleep(1000);
 		//Enter =
 		autoitX.controlClick("Calculator", "", "121") ;
+		*/
 		
 		
-		
-		
-		
-		
-		
-		type("languageDescription_XPATH", data.get("LangDesc"));
-		type("learningObjectives_XPATH", data.get("LearningObjectives"));
-		type("addObjectivesRow1_XPATH", data.get("LineOne"));
-		type("addObjectivesRow2_XPATH", data.get("LineTwo"));
-		type("addObjectivesRow3_XPATH", data.get("LineThree"));
-		type("addObjectivesRow4_XPATH", data.get("LineFour"));
-		type("addObjectivesRow5_XPATH", data.get("LineFive"));
 		
 		
 		

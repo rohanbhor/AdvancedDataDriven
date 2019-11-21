@@ -121,6 +121,7 @@ public class TestBase {
 			System.out.println("Please Mention the browser type in the object properties file");
 		}
 		
+		AutoItInit();
 		autoitX = new AutoItX();
 		wait = new WebDriverWait(driver,30);
 		
