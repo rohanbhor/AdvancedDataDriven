@@ -47,7 +47,7 @@ public class CreateContent extends TestBase {
 	public void createContent(HashMap<String, String>data) throws InterruptedException{
 		
 		ExcelReader excel = new ExcelReader(Constants.UNIVERSITY_PATH_SUITE1);
-		CommonUtils.checkExecution("GlobalAdmin", "createDocumentContent", data.get(Constants.TESTCASE_COL_RUNMODE), excel);
+		CommonUtils.checkExecution("GlobalAdmin", "createContent", data.get(Constants.TESTCASE_COL_RUNMODE), excel);
 			
 		Thread.sleep(15000);	
 		List<WebElement> ele = driver.findElements(By.tagName("iframe"));
@@ -277,8 +277,7 @@ public class CreateContent extends TestBase {
 	   click("publishContentBtn_XPATH");
 	   Thread.sleep(2000);
 	   
-	   test.log(LogStatus.INFO, "Content "+"'"+data.get("ContentName")+"'"+" published successfully");
-		   
+	   test.log(LogStatus.INFO, "Content "+"'"+data.get("ContentName")+"'"+" published successfully"); 
 	   driver.switchTo().defaultContent();
 	   System.out.println("PASSED");
 	}	
