@@ -31,6 +31,7 @@ public class CreateDocumentContent extends TestBase{
 	@BeforeClass
 	public void setUp() {
 		
+		System.out.println("Test Started");
 		driver.get(config.getProperty("qalGlobalAdmin"));
 		log.debug("Website Launched : "+config.getProperty("qalGlobalAdmin"));
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")), TimeUnit.SECONDS);
@@ -91,7 +92,7 @@ public class CreateDocumentContent extends TestBase{
 		}else if(data.get("Mode").equalsIgnoreCase("elearning")) {
 			click("elearningMode_XPATH");
 			test.log(LogStatus.INFO, "elearning Mod Selected");
-		}else if(data.get("Mode").equalsIgnoreCase("instructorLedMode")) {
+		}else if(data.get("Mode").equalsIgnoreCase("instructorLed")) {
 			click("instructorLedMode_XPATH");
 			test.log(LogStatus.INFO, "Instructor Led Mod Selected");
 		}else {
@@ -167,15 +168,16 @@ public class CreateDocumentContent extends TestBase{
 			Assert.fail("couldn't find the Language");
 		}
 		
-		type("languageDescription_XPATH",data.get("LangDesc"));
-		type("learningObjectives_XPATH",data.get("LearningObjectives"));
-		type("addObjectivesRow1_XPATH",data.get("LineOne"));
-		type("addObjectivesRow2_XPATH",data.get("LineTwo"));
-		type("addObjectivesRow3_XPATH",data.get("LineThree"));
-		type("addObjectivesRow4_XPATH",data.get("LineFour"));
-		type("addObjectivesRow5_XPATH",data.get("LineFive"));
 		
 		if(data.get("Type").equalsIgnoreCase("Document") || data.get("Type").equalsIgnoreCase("SCORM")) {
+			type("languageDescription_XPATH",data.get("LangDesc"));
+			type("learningObjectives_XPATH",data.get("LearningObjectives"));
+			type("addObjectivesRow1_XPATH",data.get("LineOne"));
+			type("addObjectivesRow2_XPATH",data.get("LineTwo"));
+			type("addObjectivesRow3_XPATH",data.get("LineThree"));
+			type("addObjectivesRow4_XPATH",data.get("LineFour"));
+			type("addObjectivesRow5_XPATH",data.get("LineFive"));
+			
 			Thread.sleep(1000);	
 			click("languageBrowseDocumentsBtn_XPATH");	
 			autoitX.winWait("Open", "", 5000);
@@ -186,13 +188,45 @@ public class CreateDocumentContent extends TestBase{
 			autoitX.ControlSetText("Open", "", "Edit1", filepath);
 			Thread.sleep(2000);
 			autoitX.controlClick("Open", "", "Button1") ;
-			Thread.sleep(5000);
+			Thread.sleep(7000);
 			test.log(LogStatus.INFO, "File uploaded Successfully :"+filepath);
 			
 		}else if(data.get("Type").equalsIgnoreCase("Reference Link")) {
+			type("languageDescription_XPATH",data.get("LangDesc"));
+			type("learningObjectives_XPATH",data.get("LearningObjectives"));
+			type("addObjectivesRow1_XPATH",data.get("LineOne"));
+			type("addObjectivesRow2_XPATH",data.get("LineTwo"));
+			type("addObjectivesRow3_XPATH",data.get("LineThree"));
+			type("addObjectivesRow4_XPATH",data.get("LineFour"));
+			type("addObjectivesRow5_XPATH",data.get("LineFive"));
+			
 			type("specifyURL_XPATH", data.get("SpecifyURL"));
 			test.log(LogStatus.INFO, "Reflink URL entered Successfully :"+data.get("SpecifyURL"));
-		}else {
+			
+		}else if(data.get("Type").equalsIgnoreCase("Training Content")){
+			type("sessionName_XPATH", data.get("SessionName"));
+			type("sessionDescription_XPATH", data.get("SessionDescription"));
+			type("learningObjectives_XPATH",data.get("LearningObjectives"));
+			type("addTrainingObjectivesRow1_XPATH",data.get("LineOne"));
+			type("addTrainingObjectivesRow2_XPATH",data.get("LineTwo"));
+			type("addTrainingObjectivesRow3_XPATH",data.get("LineThree"));
+			type("addTrainingObjectivesRow4_XPATH",data.get("LineFour"));
+			type("addTrainingObjectivesRow5_XPATH",data.get("LineFive"));
+			
+			Thread.sleep(1000);	
+			click("languageBrowseDocumentsBtn_XPATH");	
+			autoitX.winWait("Open", "", 5000);
+			autoitX.winWaitActive("Open");
+			autoitX.controlFocus("Open", "", "Edit1");
+			String filepath = System.getProperty("user.dir")+"\\src\\test\\resources\\testdatafiles\\"+data.get("Documents");
+			System.out.println(filepath);
+			autoitX.ControlSetText("Open", "", "Edit1", filepath);
+			Thread.sleep(2000);
+			autoitX.controlClick("Open", "", "Button1") ;
+			Thread.sleep(7000);
+			test.log(LogStatus.INFO, "File uploaded Successfully :"+filepath);	
+		}
+		else {
 			Assert.fail("Failed to upload a document or Failed to enter a URL(for Reflink)");
 		}
 		
@@ -226,16 +260,19 @@ public class CreateDocumentContent extends TestBase{
 		WebElement responsible = driver.findElement(By.xpath(or.getProperty("responsible_XPATH")));
 		WebElement approver = driver.findElement(By.xpath(or.getProperty("approver_XPATH")));
 		WebElement support = driver.findElement(By.xpath(or.getProperty("support_XPATH")));
+		
 	
 	   type("responsible_XPATH",data.get("Responsible"));
 	   Thread.sleep(4000);
 	   responsible.sendKeys(Keys.DOWN);
+	   Thread.sleep(1000);
 	   responsible.sendKeys(Keys.ENTER);
 	   //click("responsibleUser_XPATH");
      
 	   type("support_XPATH",data.get("Support"));
 	   Thread.sleep(3000);
 	   support.sendKeys(Keys.DOWN);
+	   Thread.sleep(1000);
 	   support.sendKeys(Keys.ENTER);
 	   //WebElement.sendKeys(Keys.DOWN + Keys.ENTER);
 	   //click("supportUser_XPATH");
@@ -243,6 +280,7 @@ public class CreateDocumentContent extends TestBase{
 	   type("approver_XPATH",data.get("Approver"));
 	   Thread.sleep(3000);
 	   approver.sendKeys(Keys.DOWN);
+	   Thread.sleep(1000);
 	   approver.sendKeys(Keys.ENTER);
 	   //click("approverUser_XPATH");
 	 

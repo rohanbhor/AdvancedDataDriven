@@ -238,7 +238,7 @@ public class TestBase {
 	
 	public static void doPassportLogin() {
 		type("passportUsername_XPATH", "UE7");
-		type("passportPassword_XPATH", "Pokahontas@300");
+		type("passportPassword_XPATH", "WWWWWW");
 		click("passportLoginBtn_XPATH");	
 	}
 	
