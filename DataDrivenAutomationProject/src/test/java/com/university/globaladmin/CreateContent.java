@@ -21,6 +21,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class CreateContent extends TestBase {
 
+	/*
 	@BeforeClass
 	public void setUp() {
 		
@@ -42,6 +43,7 @@ public class CreateContent extends TestBase {
 		click("manageContentWidget_XPATH");
 		
 	}
+	*/
 	
 	@Test(dataProviderClass=DataProviders.class, dataProvider="getDataGlobalAdmin")
 	public void createContent(HashMap<String, String>data) throws InterruptedException{

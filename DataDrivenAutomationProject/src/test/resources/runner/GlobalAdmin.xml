@@ -5,6 +5,12 @@
 	<listener class-name ="com.ds.listeners.CustomListeners"/>
 	</listeners> 
 	
+	<test name="Create Content">
+		<classes>
+			<class name="com.university.globaladmin.CreateContent" />
+		</classes>
+	</test>
+	
 	<test name="Create Scorm Content">
 		<classes>
 			<class name="com.university.globaladmin.CreateScormContent" />
